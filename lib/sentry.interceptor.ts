@@ -16,7 +16,7 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 // Sentry imports
-import { Scope } from '@sentry/hub';
+import { Scope } from '@sentry/core';
 import { Handlers } from '@sentry/node';
 
 import { SentryService } from './sentry.service';
