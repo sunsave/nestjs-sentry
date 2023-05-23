@@ -1,4 +1,4 @@
-import { Inject, Injectable, ConsoleLogger } from '@nestjs/common';
+import { Inject, Injectable, ConsoleLogger, Optional } from '@nestjs/common';
 import { OnApplicationShutdown } from '@nestjs/common';
 import { ClientOptions, Client } from '@sentry/types';
 import * as Sentry from '@sentry/node';
@@ -9,9 +9,7 @@ import { SentryModuleOptions } from './sentry.interfaces';
 export class SentryService extends ConsoleLogger implements OnApplicationShutdown {
   app = '@ntegral/nestjs-sentry: ';
   private static serviceInstance: SentryService;
-  constructor(
-    @Inject(SENTRY_MODULE_OPTIONS)
-    readonly opts?: SentryModuleOptions,
+  constructor(@Optional() @Inject(SENTRY_MODULE_OPTIONS) readonly opts?: SentryModuleOptions,
   ) {
     super();
     if (!(opts && opts.dsn)) {
