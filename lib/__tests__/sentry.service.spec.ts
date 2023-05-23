@@ -8,30 +8,23 @@ import * as Sentry from '@sentry/node';
 
 jest.spyOn(Sentry, 'close')
   .mockImplementation(() => Promise.resolve(true));
-const mockCloseSentry = Sentry.close as jest.MockedFunction<typeof Sentry.close>;
 
 const SENTRY_NOT_CONFIGURE_ERROR = 'Please confirm that Sentry is configured correctly';
 
 describe('SentryService', () => {
-    let config: SentryModuleOptions = {
+    const config: SentryModuleOptions = {
         dsn: 'https://45740e3ae4864e77a01ad61a47ea3b7e@o115888.ingest.sentry.io/25956308132020',
         debug: true,
         environment: 'development',
         logLevels: ['debug'],
     };
 
-    let failureConfig: SentryModuleOptions = {
+    const failureConfig: SentryModuleOptions = {
         dsn: 'https://sentry_io_dsn@sentry.io/1512xxx',
         debug: true,
         environment: 'development',
         logLevels: ['debug'],
     };
-
-    class TestService implements SentryOptionsFactory {
-        createSentryModuleOptions(): SentryModuleOptions {
-            return config;
-        }
-    }
 
     class FailureService implements SentryOptionsFactory {
         createSentryModuleOptions(): SentryModuleOptions {

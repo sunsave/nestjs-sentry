@@ -104,9 +104,9 @@ export class SentryInterceptor implements NestInterceptor {
 
     // If any filter passes, then we do not report
     if (this.options) {
-      const opts: SentryInterceptorOptions = this.options as {}
+      const opts: SentryInterceptorOptions = this.options as object
       if (opts.filters) {
-        let filters: SentryInterceptorOptionsFilter[] = opts.filters
+        const filters: SentryInterceptorOptionsFilter[] = opts.filters
         return filters.some(({ type, filter }) => {
           return !(exception instanceof type && (!filter || filter(exception)));
         });

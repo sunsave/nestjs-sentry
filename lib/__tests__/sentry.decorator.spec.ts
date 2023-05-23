@@ -7,7 +7,7 @@ import { SentryService } from '../sentry.service';
 
 describe('InjectS3', () => {
 
-    let config: SentryModuleOptions = {
+    const config: SentryModuleOptions = {
         dsn: 'https://45740e3ae4864e77a01ad61a47ea3b7e@o115888.ingest.sentry.io/25956308132020',
         debug: true,
         environment: 'development',
