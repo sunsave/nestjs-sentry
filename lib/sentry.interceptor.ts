@@ -108,7 +108,10 @@ export class SentryInterceptor implements NestInterceptor {
       if (opts.filters) {
         const filters: SentryInterceptorOptionsFilter[] = opts.filters
         return filters.some(({ type, filter }) => {
-          return !(exception instanceof type && (!filter || filter(exception)));
+          if (exception instanceof type) {
+              return filter===undefined || filter(exception)
+          } 
+          return false         
         });
       }
     } else {
