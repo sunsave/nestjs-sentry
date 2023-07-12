@@ -7,7 +7,7 @@ import { SentryModuleOptions } from './sentry.interfaces';
 
 @Injectable()
 export class SentryService extends ConsoleLogger implements OnApplicationShutdown {
-  app = '@ntegral/nestjs-sentry: ';
+  app = '@sunsave/nestjs-sentry: ';
   private static serviceInstance: SentryService;
   constructor(@Optional() @Inject(SENTRY_MODULE_OPTIONS) readonly opts?: SentryModuleOptions,
   ) {
