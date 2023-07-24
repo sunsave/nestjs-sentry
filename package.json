@@ -67,7 +67,7 @@
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
     "codecov": "^3.8.2",
-    "eslint": "^8.41.0",
+    "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
@@ -75,9 +75,9 @@
     "prettier": "^2.8.8",
     "release-it": "^16.1.2",
     "supertest": "^6.3.3",
-    "ts-jest": "^29.1.0",
+    "ts-jest": "^29.1.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.6"
   },
   "optionalDependencies": {
     "@nestjs/graphql": "^11.0.5"
