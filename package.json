@@ -1,6 +1,6 @@
 {
   "name": "@sunsave/nestjs-sentry",
-  "version": "0.0.4",
+  "version": "0.0.5-2",
   "contributors": [
     {
       "name": "Dexter Hardy",
@@ -38,13 +38,13 @@
   "author": "Dexter Hardy",
   "license": "ISC",
   "peerDependencies": {
-    "@nestjs/common": "9.4.2 - 10.x",
-    "@nestjs/core": "9.4.2 - 10.x",
-    "@sentry/hub": "^7.53.0",
-    "@sentry/node": "^7.53.0",
-    "reflect-metadata": "^0.1.13",
-    "rimraf": "^5.0.1",
-    "rxjs": "^7.8.1"
+    "@nestjs/common": ">=9.4.2",
+    "@nestjs/core": ">=9.4.2",
+    "@sentry/hub": ">=7.53.0",
+    "@sentry/node": ">=7.53.0",
+    "reflect-metadata": ">=0.1.13",
+    "rimraf": ">=5.0.1",
+    "rxjs": ">=7.8.1"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -80,6 +80,6 @@
     "typescript": "^5.2.2"
   },
   "optionalDependencies": {
-    "@nestjs/graphql": "^12.0.8"
+    "@nestjs/graphql": ">=12.0.8"
   }
 }
