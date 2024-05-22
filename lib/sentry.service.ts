@@ -9,8 +9,7 @@ import { SentryModuleOptions } from './sentry.interfaces';
 export class SentryService extends ConsoleLogger implements OnApplicationShutdown {
   app = '@sunsave/nestjs-sentry: ';
   private static serviceInstance: SentryService;
-  constructor(@Optional() @Inject(SENTRY_MODULE_OPTIONS) readonly opts?: SentryModuleOptions,
-  ) {
+  constructor(@Optional() @Inject(SENTRY_MODULE_OPTIONS) readonly opts?: SentryModuleOptions) {
     super();
     if (!(opts && opts.dsn)) {
       // console.log('options not found. Did you use SentryModule.forRoot?');
@@ -28,9 +27,7 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
               console.log(err);
             } else {
               (
-                Sentry.getCurrentHub().getClient<
-                  Client<ClientOptions>
-                >() as Client<ClientOptions>
+                Sentry.getCurrentHub().getClient<Client<ClientOptions>>() as Client<ClientOptions>
               ).captureException(err);
               process.exit(1);
             }
@@ -53,15 +50,15 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
     message = `${this.app} ${message}`;
     try {
       super.log(message, context);
-      asBreadcrumb ?
-      Sentry.addBreadcrumb({
-        message,
-        level: 'log',
-        data: {
-          context
-        }
-      }) :
-      Sentry.captureMessage(message, 'log');
+      asBreadcrumb
+        ? Sentry.addBreadcrumb({
+            message,
+            level: 'log',
+            data: {
+              context,
+            },
+          })
+        : Sentry.captureMessage(message, 'log');
     } catch (err) {}
   }
 
@@ -77,15 +74,15 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
     message = `${this.app} ${message}`;
     try {
       super.warn(message, context);
-      asBreadcrumb ?
-      Sentry.addBreadcrumb({
-        message,
-        level: 'warning',
-        data: {
-          context
-        }
-      }) :
-      Sentry.captureMessage(message, 'warning');
+      asBreadcrumb
+        ? Sentry.addBreadcrumb({
+            message,
+            level: 'warning',
+            data: {
+              context,
+            },
+          })
+        : Sentry.captureMessage(message, 'warning');
     } catch (err) {}
   }
 
@@ -93,15 +90,15 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
     message = `${this.app} ${message}`;
     try {
       super.debug(message, context);
-      asBreadcrumb ?
-      Sentry.addBreadcrumb({
-        message,
-        level: 'debug',
-        data: {
-          context
-        }
-      }) :
-      Sentry.captureMessage(message, 'debug');
+      asBreadcrumb
+        ? Sentry.addBreadcrumb({
+            message,
+            level: 'debug',
+            data: {
+              context,
+            },
+          })
+        : Sentry.captureMessage(message, 'debug');
     } catch (err) {}
   }
 
@@ -109,15 +106,15 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
     message = `${this.app} ${message}`;
     try {
       super.verbose(message, context);
-      asBreadcrumb ?
-      Sentry.addBreadcrumb({
-        message,
-        level: 'info',
-        data: {
-          context
-        }
-      }) :
-      Sentry.captureMessage(message, 'info');
+      asBreadcrumb
+        ? Sentry.addBreadcrumb({
+            message,
+            level: 'info',
+            data: {
+              context,
+            },
+          })
+        : Sentry.captureMessage(message, 'info');
     } catch (err) {}
   }
 
