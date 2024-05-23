@@ -2,6 +2,7 @@ import { ConsoleLoggerOptions } from '@nestjs/common';
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
 import { SeverityLevel } from '@sentry/node';
 import { Integration, Options } from '@sentry/types';
+import { AddRequestDataToEventOptions } from '@sentry/utils';
 
 export interface SentryCloseOptions {
   enabled: boolean;
@@ -36,17 +37,11 @@ export interface SentryInterceptorOptionsFilter {
   filter?: SentryFilterFunction;
 }
 
-export interface SentryInterceptorOptions {
+export interface SentryInterceptorOptions extends AddRequestDataToEventOptions {
   filters?: SentryInterceptorOptionsFilter[];
   tags?: { [key: string]: string };
   extra?: { [key: string]: any };
   fingerprint?: string[];
   level?: SeverityLevel;
-
-  // https://github.com/getsentry/sentry-javascript/blob/master/packages/node/src/handlers.ts#L163
-  request?: boolean;
-  serverName?: boolean;
-  transaction?: boolean | 'path' | 'methodPath' | 'handler'; // https://github.com/getsentry/sentry-javascript/blob/master/packages/node/src/handlers.ts#L16
-  user?: boolean | string[];
   version?: boolean;
 }

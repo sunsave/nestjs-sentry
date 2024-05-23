@@ -7,20 +7,19 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import {
-  HttpArgumentsHost,
-  WsArgumentsHost,
-  RpcArgumentsHost,
   ContextType,
+  HttpArgumentsHost,
+  RpcArgumentsHost,
+  WsArgumentsHost,
 } from '@nestjs/common/interfaces';
 // Rxjs imports
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 // Sentry imports
-import { Scope } from '@sentry/core';
-import { Handlers } from '@sentry/node';
+import { Scope, addRequestDataToEvent } from '@sentry/node';
 
-import { SentryService } from './sentry.service';
 import { SentryInterceptorOptions, SentryInterceptorOptionsFilter } from './sentry.interfaces';
+import { SentryService } from './sentry.service';
 
 @Injectable()
 export class SentryInterceptor implements NestInterceptor {
@@ -56,7 +55,7 @@ export class SentryInterceptor implements NestInterceptor {
     http: HttpArgumentsHost,
     exception: HttpException,
   ): void {
-    const data = Handlers.parseRequest(<any>{}, http.getRequest(), this.options);
+    const data = addRequestDataToEvent(<any>{}, http.getRequest(), this.options);
 
     scope.setExtra('req', data.request);
 
