@@ -40,8 +40,8 @@
   "peerDependencies": {
     "@nestjs/common": ">=10.3.3",
     "@nestjs/core": ">=10.3.3",
-    "@sentry/hub": ">=7.104.0",
     "@sentry/node": ">=8.2.0",
+    "@sentry/types": ">=8.2.0",
     "reflect-metadata": ">=0.1.13",
     "rimraf": ">=5.0.1",
     "rxjs": ">=7.8.1"

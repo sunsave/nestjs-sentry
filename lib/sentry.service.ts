@@ -1,6 +1,5 @@
 import { Inject, Injectable, ConsoleLogger, Optional } from '@nestjs/common';
 import { OnApplicationShutdown } from '@nestjs/common';
-import { ClientOptions, Client } from '@sentry/types';
 import * as Sentry from '@sentry/node';
 import { SENTRY_MODULE_OPTIONS } from './sentry.constants';
 import { SentryModuleOptions } from './sentry.interfaces';
@@ -15,25 +14,21 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
       // console.log('options not found. Did you use SentryModule.forRoot?');
       return;
     }
-    const { debug, integrations = [], ...sentryOptions } = opts;
+    const { integrations = [], ...sentryOptions } = opts;
     Sentry.init({
       ...sentryOptions,
       integrations: [
-        new Sentry.Integrations.OnUncaughtException({
+        Sentry.onUncaughtExceptionIntegration({
           onFatalError: async (err) => {
-            // console.error('uncaughtException, not cool!')
-            // console.error(err);
             if (err.name === 'SentryError') {
               console.log(err);
             } else {
-              (
-                Sentry.getCurrentHub().getClient<Client<ClientOptions>>() as Client<ClientOptions>
-              ).captureException(err);
+              Sentry.getClient()?.captureException(err);
               process.exit(1);
             }
           },
         }),
-        new Sentry.Integrations.OnUnhandledRejection({ mode: 'warn' }),
+        Sentry.onUnhandledRejectionIntegration({ mode: 'warn' }),
         ...integrations,
       ],
     });
@@ -59,7 +54,9 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
             },
           })
         : Sentry.captureMessage(message, 'log');
-    } catch (err) {}
+    } catch (_err) {
+      /* empty */
+    }
   }
 
   error(message: string, trace?: string, context?: string) {
@@ -67,7 +64,9 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
     try {
       super.error(message, trace, context);
       Sentry.captureMessage(message, 'error');
-    } catch (err) {}
+    } catch (_err) {
+      /* empty */
+    }
   }
 
   warn(message: string, context?: string, asBreadcrumb?: boolean) {
@@ -83,7 +82,9 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
             },
           })
         : Sentry.captureMessage(message, 'warning');
-    } catch (err) {}
+    } catch (_err) {
+      /* empty */
+    }
   }
 
   debug(message: string, context?: string, asBreadcrumb?: boolean) {
@@ -99,7 +100,9 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
             },
           })
         : Sentry.captureMessage(message, 'debug');
-    } catch (err) {}
+    } catch (_err) {
+      /* empty */
+    }
   }
 
   verbose(message: string, context?: string, asBreadcrumb?: boolean) {
@@ -115,14 +118,16 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
             },
           })
         : Sentry.captureMessage(message, 'info');
-    } catch (err) {}
+    } catch (_err) {
+      /* empty */
+    }
   }
 
   instance() {
     return Sentry;
   }
 
-  async onApplicationShutdown(signal?: string) {
+  async onApplicationShutdown(_signal?: string) {
     if (this.opts?.close?.enabled === true) {
       await Sentry.close(this.opts?.close.timeout);
     }
