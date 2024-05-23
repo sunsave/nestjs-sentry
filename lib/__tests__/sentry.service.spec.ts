@@ -141,7 +141,9 @@ describe('SentryService', () => {
       try {
         sentry.warn('sentry:warn', 'context:warn');
         expect(true).toBeTruthy();
-      } catch (err) {}
+      } catch (_err) {
+        /* empty */
+      }
       expect(sentry.warn).toBeInstanceOf(Function);
     });
   });
@@ -199,7 +201,7 @@ describe('SentryService', () => {
 
       try {
         sentry.verbose('This will throw an exception');
-      } catch (err) {
+      } catch (_err) {
         //to do//
         expect(sentry.log).toThrowError(SENTRY_NOT_CONFIGURE_ERROR);
       }
@@ -219,7 +221,7 @@ describe('SentryService', () => {
 
       try {
         sentry.warn('This will throw an exception');
-      } catch (err) {
+      } catch (_err) {
         //to do//
         expect(sentry.log).toThrowError(SENTRY_NOT_CONFIGURE_ERROR);
       }
@@ -239,7 +241,7 @@ describe('SentryService', () => {
 
       try {
         sentry.error('This will throw an exception');
-      } catch (err) {
+      } catch (_err) {
         //to do//
         expect(sentry.log).toThrowError(SENTRY_NOT_CONFIGURE_ERROR);
       }
@@ -259,7 +261,7 @@ describe('SentryService', () => {
 
       try {
         sentry.debug('This will throw an exception');
-      } catch (err) {
+      } catch (_err) {
         //to do//
         expect(sentry.log).toThrowError(SENTRY_NOT_CONFIGURE_ERROR);
       }
@@ -279,7 +281,7 @@ describe('SentryService', () => {
 
       try {
         sentry.log('This will throw an exception');
-      } catch (err) {
+      } catch (_err) {
         //to do//
         expect(sentry.log).toThrowError(SENTRY_NOT_CONFIGURE_ERROR);
       }
@@ -313,7 +315,9 @@ describe('SentryService', () => {
       try {
         sentry.log('sentry:log', 'context:log', true);
         expect(true).toBeTruthy();
-      } catch (err) {}
+      } catch (_err) {
+        /* empty */
+      }
       expect(sentry.log).toBeInstanceOf(Function);
     });
 
@@ -321,7 +325,9 @@ describe('SentryService', () => {
       try {
         sentry.debug('sentry:debug', 'context:debug', true);
         expect(true).toBeTruthy();
-      } catch (err) {}
+      } catch (_err) {
+        /* empty */
+      }
       expect(sentry.debug).toBeInstanceOf(Function);
     });
 
@@ -329,7 +335,9 @@ describe('SentryService', () => {
       try {
         sentry.verbose('sentry:verbose', 'context:verbose', true);
         expect(true).toBeTruthy();
-      } catch (err) {}
+      } catch (_err) {
+        /* empty */
+      }
       expect(sentry.verbose).toBeInstanceOf(Function);
     });
 
@@ -337,7 +345,9 @@ describe('SentryService', () => {
       try {
         sentry.verbose('sentry:warn', 'context:warn', true);
         expect(true).toBeTruthy();
-      } catch (err) {}
+      } catch (_err) {
+        /* empty */
+      }
       expect(sentry.warn).toBeInstanceOf(Function);
     });
   });
